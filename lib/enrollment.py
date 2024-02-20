@@ -1,5 +1,7 @@
 from datetime import datetime
+
 class Student:
+
     def __init__(self, name):
         self.name = name
         self._enrollments = []
@@ -32,6 +34,7 @@ class Course:
 
 
 class Enrollment:
+
     all = []
     
     def __init__(self, student, course):
@@ -45,3 +48,11 @@ class Enrollment:
 
     def get_enrollment_date(self):
         return self._enrollment_date
+    
+    @classmethod
+    def aggregate_enrollments_per_day(cls):
+        enrollment_count = {}
+        for enrollment in cls.all:
+            date = enrollment.get_enrollment_date().date()
+            enrollment_count[date] = enrollment_count.get(date, 0) + 1
+        return enrollment_count
